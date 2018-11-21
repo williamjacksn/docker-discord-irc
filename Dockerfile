@@ -10,4 +10,4 @@ ENTRYPOINT ["/home/node/.npm-global/bin/discord-irc", "--config", "/config/disco
 
 LABEL maintainer=william@subtlecoolness.com \
       org.label-schema.schema-version=1.0 \
-      org.label-schema.version=0.0.1
+      org.label-schema.version=2.6.2
