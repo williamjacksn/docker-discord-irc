@@ -2,8 +2,8 @@ FROM node:10.16.0-alpine
 
 USER node
 
-ENV NODE_ENV production
-ENV NPM_CONFIG_PREFIX /home/node/.npm-global
+ENV NODE_ENV="production" \
+    NPM_CONFIG_PREFIX="/home/node/.npm-global"
 
 RUN /usr/local/bin/npm install --global --production discord-irc@2.7.0 \
  && /usr/local/bin/npm cache clean --force
