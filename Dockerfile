@@ -10,6 +10,6 @@ RUN /usr/local/bin/npm install --global --production discord-irc@2.7.0 \
 
 ENTRYPOINT ["/home/node/.npm-global/bin/discord-irc", "--config", "/config/discord-irc.json"]
 
-LABEL maintainer=william@subtlecoolness.com \
-      org.label-schema.schema-version=1.0 \
-      org.label-schema.version=2.7.0
+LABEL org.opencontainers.image.authors="William Jackson <william@subtlecoolness.com>" \
+      org.opencontainers.image.source="https://github.com/williamjacksn/docker-discord-irc" \
+      org.opencontainers.image.version=2.7.0
