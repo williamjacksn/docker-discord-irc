@@ -4,12 +4,12 @@ USER node
 
 ARG DISCORD_IRC_VERSION="2.7.2"
 ENV NODE_ENV="production" \
-    NPM_CONFIG_PREFIX="/home/node/.npm-global"
+    PATH="/home/node/.yarn/bin:${PATH}"
 
-RUN /usr/local/bin/npm install --global --production "discord-irc@${DISCORD_IRC_VERSION}" \
- && /usr/local/bin/npm cache clean --force
+RUN /usr/local/bin/yarn global add "discord-irc@${DISCORD_IRC_VERSION}" \
+ && /usr/local/bin/yarn cache clean
 
-ENTRYPOINT ["/home/node/.npm-global/bin/discord-irc", "--config", "/config/discord-irc.json"]
+ENTRYPOINT ["/home/node/.yarn/bin/discord-irc", "--config", "/config/discord-irc.json"]
 
 LABEL org.opencontainers.image.authors="William Jackson <william@subtlecoolness.com>" \
       org.opencontainers.image.source="https://github.com/williamjacksn/docker-discord-irc" \
