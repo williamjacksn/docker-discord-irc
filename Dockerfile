@@ -3,7 +3,7 @@ FROM node:12.16.1-alpine3.11
 USER node
 
 # https://www.npmjs.com/package/discord-irc
-ARG DISCORD_IRC_VERSION="2.8.0"
+ARG DISCORD_IRC_VERSION="2.8.1"
 
 ENV NODE_ENV="production" \
     PATH="/home/node/.yarn/bin:${PATH}"
