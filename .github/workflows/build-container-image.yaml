@@ -1,0 +1,30 @@
+name: Build the container image
+
+on:
+  pull_request:
+    branches:
+      - master
+  release:
+    types:
+      - published
+
+jobs:
+
+  build:
+    name: Build the container image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2.3.2
+      - name: Log in to the GitHub registry
+        run: docker login --password "${{ github.token }}" --username "${{ github.actor }}" docker.pkg.github.com
+      - name: Set the container image name
+        id: vars
+        run: echo ::set-output name=image-name::docker.pkg.github.com/${{ github.repository }}/discord-irc
+      - name: Build the container image
+        run: docker build --file Dockerfile --tag ${{ steps.vars.outputs.image-name }}:latest .
+      - name: Push the image to the registry
+        if: github.event_name == 'release'
+        run: |
+          docker image tag ${{ steps.vars.outputs.image-name }}:latest ${{ steps.vars.outputs.image-name }}:${{ github.event.release.tag_name }}
+          docker image push ${{ steps.vars.outputs.image-name }}:${{ github.event.release.tag_name }}
