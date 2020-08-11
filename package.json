@@ -1,0 +1,9 @@
+{
+  "name": "docker-discord-irc",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "discord-irc": "2.8.1"
+  }
+}
