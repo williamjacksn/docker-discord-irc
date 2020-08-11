@@ -22,9 +22,9 @@ jobs:
         id: vars
         run: echo ::set-output name=image-name::docker.pkg.github.com/${{ github.repository }}/discord-irc
       - name: Build the container image
-        run: docker build --file Dockerfile --tag ${{ steps.vars.outputs.image-name }}:latest .
+        run: docker image build --file Dockerfile --tag ${{ steps.vars.outputs.image-name }} .
       - name: Push the image to the registry
         if: github.event_name == 'release'
         run: |
-          docker image tag ${{ steps.vars.outputs.image-name }}:latest ${{ steps.vars.outputs.image-name }}:${{ github.event.release.tag_name }}
+          docker image tag ${{ steps.vars.outputs.image-name }} ${{ steps.vars.outputs.image-name }}:${{ github.event.release.tag_name }}
           docker image push ${{ steps.vars.outputs.image-name }}:${{ github.event.release.tag_name }}
