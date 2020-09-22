@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - master
+  push:
+    branches:
+      - master
   release:
     types:
       - published
@@ -14,17 +17,22 @@ jobs:
     name: Build the container image
     runs-on: ubuntu-latest
     steps:
+
       - name: Check out the repository
         uses: actions/checkout@v2.3.2
-      - name: Log in to the GitHub registry
-        run: docker login --password "${{ github.token }}" --username "${{ github.actor }}" docker.pkg.github.com
-      - name: Set the container image name
-        id: vars
-        run: echo ::set-output name=image-name::docker.pkg.github.com/${{ github.repository }}/discord-irc
+
       - name: Build the container image
-        run: docker image build --file Dockerfile --tag ${{ steps.vars.outputs.image-name }} .
-      - name: Push the image to the registry
-        if: github.event_name == 'release'
-        run: |
-          docker image tag ${{ steps.vars.outputs.image-name }} ${{ steps.vars.outputs.image-name }}:${{ github.event.release.tag_name }}
-          docker image push ${{ steps.vars.outputs.image-name }}:${{ github.event.release.tag_name }}
+        uses: docker/build-push-action@v1.1.0
+        with:
+          repository: discord-irc
+
+      - name: Tag and push the image
+        if: github.event_name == 'push' || github.event_name == 'release'
+        uses: docker/build-push-action@v1.1.0
+        with:
+          repository: ${{ github.repository }}/discord-irc
+          registry: docker.pkg.github.com
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+          tag_with_ref: true
+          add_git_labels: true
