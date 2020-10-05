@@ -4,6 +4,6 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "discord-irc": "2.8.1"
+    "discord-irc": "2.9.0"
   }
 }
