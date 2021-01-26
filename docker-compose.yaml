@@ -1,6 +1,5 @@
-version: '3'
+version: '3.8'
 
 services:
   discord-irc:
-    image: docker.pkg.github.com/williamjacksn/docker-discord-irc/discord-irc
-    build: .
+    image: ghcr.io/williamjacksn/discord-irc
